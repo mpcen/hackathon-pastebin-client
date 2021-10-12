@@ -1,26 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const App = () => {
+    const [text, setText] = useState('');
+    const [exposure, setExposure] = useState('');
+
+    const handleOnSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        console.log('submitting', text, exposure)
+
+        const response = await axios.post('http://localhost:5000/', {
+            text,
+            exposure
+        });
+
+        console.log('result:', response.data)
+    }
+
+    return (
+        <form onSubmit={handleOnSubmit}>
+            <textarea
+                placeholder="Your paste text"
+                cols={30}
+                rows={10}
+                onChange={e => setText(e.target.value)}
+                value={text}
+            />
+
+            <div>
+                <div>
+                    <label>
+                        Private
+                        <input
+                            onChange={e => setExposure(e.target.value)}
+                            name="exposure"
+                            type="radio"
+                            value="private"
+                        />
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Public
+                        <input
+                            onChange={e => setExposure(e.target.value)}
+                            name="exposure"
+                            type="radio"
+                            value="public"
+                        />
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    );
 }
-
-export default App;
