@@ -5,14 +5,16 @@ import {
 } from 'react-router-dom';
 
 import { HomePage } from './HomePage';
-import { PastePage } from './pastes/PastePage';
+import { ViewPastePage } from './pastes/ViewPastePage';
+import { EditPastePage } from './pastes/EditPastePage';
 
 export const App = () => {
     return (
         <Router>
             <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route exact path="/:hash" component={PastePage} />
+            <Route exact path="/:hash" component={ViewPastePage} />
+            <Route exact path="/edit/:hash" component={EditPastePage} />
             </Switch>
         </Router>
     );
