@@ -4,9 +4,9 @@ import {
     BrowserRouter as Router,
 } from 'react-router-dom';
 
-import { HomePage } from './HomePage';
-import { ViewPastePage } from './pastes/ViewPastePage';
-import { EditPastePage } from './pastes/EditPastePage';
+import { HomePage } from './pages/HomePage';
+import { ViewPastePage } from './pages/ViewPastePage';
+import { EditPastePage } from './pages/EditPastePage';
 
 export const App = () => {
     return (

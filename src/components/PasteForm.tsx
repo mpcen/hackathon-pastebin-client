@@ -1,22 +1,27 @@
+import { Paste } from '../types';
+
 type Props = {
-    title: string, 
-    setPasteTitle: React.Dispatch<React.SetStateAction<string>>, 
-    text: string, 
-    setPasteText: React.Dispatch<React.SetStateAction<string>>,
-    exposure: string,
-    setPasteExposure: React.Dispatch<React.SetStateAction<string>>,
-    handleOnSubmit: React.FormEventHandler
+    paste: Paste;
+    setPaste: React.Dispatch<React.SetStateAction<Paste>>;
+    onFormSubmit: () => Promise<void>;
 }
 
 export const PasteForm = (props: Props) => {
+    const { paste, setPaste, onFormSubmit } = props;
+
+    const handleOnSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        await onFormSubmit();
+    }
 
     return (
-        <form onSubmit={props.handleOnSubmit}>
+        <form onSubmit={handleOnSubmit}>
             <div>
                 <input
                     placeholder="Untitled"
-                    onChange={e => props.setPasteTitle(e.target.value)}
-                    value={props.title}
+                    onChange={e => setPaste(prevState => ({ ...prevState, title: e.target.value }))}
+                    value={paste.title}
                 />
             </div>
 
@@ -25,8 +30,8 @@ export const PasteForm = (props: Props) => {
                     placeholder="Your paste text"
                     cols={30}
                     rows={10}
-                    onChange={e => props.setPasteText(e.target.value)}
-                    value={props.text}
+                    onChange={e => setPaste(prevState => ({ ...prevState, text: e.target.value }))}
+                    value={paste.text}
                 />
             </div>
 
@@ -35,9 +40,10 @@ export const PasteForm = (props: Props) => {
                     <label>
                         Private
                         <input
-                            onChange={e => props.setPasteExposure(e.target.value)}
+                            onChange={e => setPaste(prevState => ({ ...prevState, exposure: e.target.value }))}
                             name="exposure"
                             type="radio"
+                            checked={paste.exposure === "private"}
                             value="private"
                         />
                     </label>
@@ -47,9 +53,10 @@ export const PasteForm = (props: Props) => {
                     <label>
                         Public
                         <input
-                            onChange={e => props.setPasteExposure(e.target.value)}
+                            onChange={e => setPaste(prevState => ({ ...prevState, exposure: e.target.value }))}
                             name="exposure"
                             type="radio"
+                            checked={paste.exposure === "public"}
                             value="public"
                         />
                     </label>

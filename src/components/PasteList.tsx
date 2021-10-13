@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import { Paste } from "../api";
+
+import { Paste } from '../types';
 
 type Props = {
     pasteList: Paste[]
 }
 
 export const PasteList = (props: Props) => {
-
     return (
         <ul>
             {
