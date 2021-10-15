@@ -1,34 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import { PasteForm } from '../components/PasteForm';
-import { PasteList } from '../components/PasteList';
-import { api } from '../api';
-import { Paste } from '../types';
+import { PasteForm } from "../components/PasteForm";
+import { PasteList } from "../components/PasteList";
+import { api } from "../api";
+import { Paste } from "../types";
 
 export const HomePage = () => {
-    const [paste, setPaste] = useState<Paste>({
-        title: '',
-        text: '',
-        exposure: ''
-    });
-    const [pasteList, setPasteList] = useState<Paste[]>([]);
+  const [paste, setPaste] = useState<Paste>({
+    title: "",
+    text: "",
+    exposure: "",
+  });
+  const [pasteList, setPasteList] = useState<Paste[]>([]);
 
-    useEffect(() => {
-        const getPasteList = async () => {
-            const allPublicPastes = await api.getPublicPastes();
-            setPasteList(allPublicPastes);
-        }
+  useEffect(() => {
+    const getPastes = async () => {
+      const pasteList = await api.getPublicPastes();
+      setPasteList(pasteList);
+    };
+    getPastes();
 
-        getPasteList();
-    }, []);
+    const events = new EventSource(`${process.env.REACT_APP_API}/events`);
 
-    const onFormSubmit = async () => {
-        const response = await api.createNewPaste(paste);
+    events.onmessage = (event) => {
+      setPasteList(prevState => [...prevState, JSON.parse(event.data)]);
+    };
+  }, []);
 
-        setPaste(response);
-        setPasteList(prevState => [...prevState, response]);
-        setPaste({ title: '', text: '', exposure: '' });
-    }
+  const onFormSubmit = async () => {
+    await api.createNewPaste(paste);
+  };
 
     return (
         <div>
@@ -56,5 +57,5 @@ export const HomePage = () => {
                 </div>
             </main>
         </div>
-    );
-}
+  );
+};
