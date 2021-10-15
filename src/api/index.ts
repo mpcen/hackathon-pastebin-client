@@ -10,7 +10,7 @@ export const api = {
         return allPastesResponse.data;
     },
     getSinglePaste: async (hash: string): Promise<Paste> => {
-        const singlePasteResponse: any = await axios.get(`${REACT_APP_API}/${hash}`);
+        const singlePasteResponse: any = await axios.get(`${REACT_APP_API}/pastes/${hash}`);
         return singlePasteResponse.data;
     },
     createNewPaste: async (paste: Paste): Promise<Paste> => {

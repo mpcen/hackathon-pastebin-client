@@ -38,16 +38,20 @@ export const HomePage = () => {
                 </div>
             </header>
             <main>
-                <div className="max-w-7xl mx-auto py-4 sm:px-6 lg:px-8">
-                    <div className="px-4 py-6 sm:px-0">
+                <div className="max-w-7xl py-4 sm:px-6 lg:px-8">
+                    <div className="flex">
+                        <div className="flex flex-6">
                         <PasteForm 
                             paste={paste}
                             setPaste={setPaste}
                             onFormSubmit={onFormSubmit}
                         />
+                        </div>
+                        <div className="flex flex-3">
                         <PasteList 
                             pasteList={pasteList}
-                        />
+                            />
+                        </div>
                     </div>
                 </div>
             </main>

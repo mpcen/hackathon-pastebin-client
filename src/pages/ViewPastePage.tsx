@@ -10,13 +10,7 @@ type ParamType = {
 }
 
 export const ViewPastePage = () => {
-    const [paste, setPaste] = useState({
-        title: "Hi",
-        exposure: "public",
-        hash: "1234",
-        createdDate: "today",
-        text: "sample text"
-    } as Paste);
+    const [paste, setPaste] = useState({} as Paste);
     const { hash } = useParams<ParamType>();
 
     useEffect(() => {
@@ -48,23 +42,23 @@ export const ViewPastePage = () => {
                         <div>
                             <div className="md:grid md:grid-cols-6">
                                 <div className="mt-5 md:mt-0 md:col-span-6">
-                                    <div className="shadow sm:rounded-md sm:overflow-hidden">
+                                    <div className="shadow sm:rounded-md">
                                         <div className="px-1 py-5 bg-white space-y-6 sm:p-6">
                                             <div className="py-5">
                                                 <div>
-                                                <p className="text-5xl leading-6 text-gray-900">{paste.title}</p>
+                                                    <p className="text-5xl pb-6 text-gray-900">{paste.title}</p>
                                                 </div>
-                                                <div>
+                                                <div className="flex border">
                                                     <UserCircleIcon className="flex-shrink-0 h-5 w-5 text-gray-400" />
-                                                    <p className="mt-1 max-w-2xl text-sm text-gray-500">John Doe</p>
+                                                    <p className="max-w-2xl text-sm text-gray-500">John Doe</p>
                                                 </div>
-                                                <div>
+                                                <div className="flex">
                                                     <CalendarIcon className="flex-shrink-0 h-5 w-5 text-gray-400" />
-                                                    <p className="mt-1 max-w-2xl text-sm text-gray-500">{paste.createdDate}</p>
+                                                    <p className="max-w-2xl text-sm text-gray-500">{paste.createdDate}</p>
                                                 </div>
-                                                <div>
+                                                <div className="flex border">
                                                 {lockIcon}
-                                                <p className="mt-1 max-w-2xl text-sm text-gray-500">{paste.exposure}</p>
+                                                <p className="max-w-2xl text-sm text-gray-500">{paste.exposure}</p>
                                                 </div>
                                             </div>
 
