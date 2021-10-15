@@ -57,6 +57,7 @@ export const PasteForm = (props: Props) => {
                                     placeholder="Untitled"
                                     onChange={e => setPaste(prevState => ({ ...prevState, title: e.target.value }))}
                                     value={paste.title}
+                                    required
                                     />
                                 </div>
                             </div>
@@ -69,12 +70,13 @@ export const PasteForm = (props: Props) => {
                                 <textarea
                                     id="paste-text"
                                     name="paste-text"
-                                    rows={13}
+                                    rows={15}
                                     className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     placeholder="Your paste text"
                                     defaultValue={''}
                                     onChange={e => setPaste(prevState => ({ ...prevState, text: e.target.value }))}
                                     value={paste.text}
+                                    required
                                 />
                                 </div>
                             </div>

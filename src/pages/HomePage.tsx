@@ -37,17 +37,17 @@ export const HomePage = () => {
                 <h1 className="text-3xl font-bold text-gray-900">New Paste</h1>
                 </div>
             </header>
-            <main>
-                <div className="max-w-7xl py-4 sm:px-6 lg:px-8">
-                    <div className="flex">
-                        <div className="flex flex-6">
+            <main className="flex justify-center">
+                <div className="max-w-7xl py-4 sm:px-6 lg:px-8 justify-center">
+                    <div className="grid grid-cols-4 gap-4 justify-center">
+                        <div className="col-span-3 row-span-auto">
                         <PasteForm 
                             paste={paste}
                             setPaste={setPaste}
                             onFormSubmit={onFormSubmit}
                         />
                         </div>
-                        <div className="flex flex-3">
+                        <div className="col-span-1 row-span-auto">
                         <PasteList 
                             pasteList={pasteList}
                             />
