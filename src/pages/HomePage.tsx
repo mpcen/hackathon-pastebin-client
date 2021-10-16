@@ -38,17 +38,17 @@ export const HomePage = () => {
                 <h1 className="text-3xl font-bold text-gray-900">New Paste</h1>
                 </div>
             </header>
-            <main className="flex justify-center">
-                <div className="max-w-7xl py-4 sm:px-6 lg:px-8 justify-center">
-                    <div className="grid grid-cols-4 gap-4 justify-center">
-                        <div className="col-span-3 row-span-auto">
+            <main className="flex justify-center min-w-full">
+                <div className="grid max-w-7xl w-full py-4 sm:px-6 lg:px-8 justify-center">
+                    <div className="grid grid-cols-4 gap-4 justify-center w-full">
+                        <div className="col-span-3 row-span-auto min-w-full">
                         <PasteForm 
                             paste={paste}
                             setPaste={setPaste}
                             onFormSubmit={onFormSubmit}
                         />
                         </div>
-                        <div className="col-span-1 row-span-auto">
+                        <div className="col-span-1 row-span-auto w-auto">
                         <PasteList 
                             pasteList={pasteList}
                             />

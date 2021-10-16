@@ -14,20 +14,13 @@ type Props = {
     onFormSubmit: () => Promise<void>;
 }
 
-const exposureOptions = [
-    {
-      id: 1,
-      name: 'Public',
-    },
-    {
-      id: 2,
-      name: 'Private',
-    },
-];
+const exposureCapitalized = new Map<string, string>([
+    ["private", "Private"],
+    ["public", "Public"]
+]);
 
 export const PasteForm = (props: Props) => {
     const { paste, setPaste, onFormSubmit } = props;
-    const [selected, setSelected] = useState(exposureOptions[0])
 
     const handleOnSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -38,10 +31,10 @@ export const PasteForm = (props: Props) => {
     return (
         <div>
             <div>
-                <div className="mt-5 md:mt-0 md:col-span-4">
+                <div className="mt-5 md:mt-0 md:col-span-4 min-w-full">
                     <form onSubmit={handleOnSubmit}>
                     <div className="shadow sm:rounded-md sm:overflow-hidden">
-                        <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
+                        <div className="px-4 py-5 bg-white space-y-6 sm:p-6 w-full">
                             <div>
                                 <label htmlFor="title" className="block text-sm font-medium text-gray-700">
                                     Title
@@ -83,12 +76,12 @@ export const PasteForm = (props: Props) => {
 
                             <div>
 
-                            <Listbox value={selected} onChange={setSelected}>
+                            <Listbox value={paste.exposure} onChange={e => setPaste(prevState => ({ ...prevState, exposure: e }))}>
                                 <Listbox.Label className="block text-sm font-medium text-gray-700">Exposure</Listbox.Label>
                                 <div className="mt-1 relative">
                                     <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     <span className="flex items-center">
-                                        <span className="ml-3 block truncate">{selected.name}</span>
+                                        <span className="ml-3 block truncate">{paste.exposure ? exposureCapitalized.get(paste.exposure) : "Public"}</span>
                                     </span>
                                     <span className="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                                         <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -97,39 +90,38 @@ export const PasteForm = (props: Props) => {
 
                                     <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
                                     <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                                        {exposureOptions.map((option) => (
                                         <Listbox.Option
-                                            key={option.id}
+                                            key="public"
                                             className={({ active }) =>
                                             classNames(
                                                 active ? 'text-white bg-indigo-600' : 'text-gray-900',
                                                 'cursor-default select-none relative py-2 pl-3 pr-9'
                                             )
                                             }
-                                            value={option}
+                                            value="public"
                                         >
-                                            {({ selected, active }) => (
-                                            <>
                                                 <div className="flex items-center">
-                                                <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}>
-                                                    {option.name}
+                                                <span className={classNames('ml-3 block truncate')}>
+                                                    Public
                                                 </span>
                                                 </div>
-
-                                                {selected ? (
-                                                <span
-                                                    className={classNames(
-                                                    active ? 'text-white' : 'text-indigo-600',
-                                                    'absolute inset-y-0 right-0 flex items-center pr-4'
-                                                    )}
-                                                >
-                                                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                                </span>
-                                                ) : null}
-                                            </>
-                                            )}
                                         </Listbox.Option>
-                                        ))}
+                                        <Listbox.Option
+                                            key="private"
+                                            className={({ active }) =>
+                                            classNames(
+                                                active ? 'text-white bg-indigo-600' : 'text-gray-900',
+                                                'cursor-default select-none relative py-2 pl-3 pr-9'
+                                            )
+                                            }
+                                            value="private"
+                                        >
+                                                <div className="flex items-center">
+                                                <span className={classNames('ml-3 block truncate')}>
+                                                    Private
+                                                </span>
+                                                </div>
+                                        </Listbox.Option>
                                     </Listbox.Options>
                                     </Transition>
                                 </div>
