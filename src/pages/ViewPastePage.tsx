@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import { api } from '../api';
 import { Paste } from '../types';
-import { UserCircleIcon, CalendarIcon, LockOpenIcon, LockClosedIcon } from '@heroicons/react/outline'
+import { CalendarIcon, LockOpenIcon, LockClosedIcon } from '@heroicons/react/outline'
 
 type ParamType = {
     hash: string

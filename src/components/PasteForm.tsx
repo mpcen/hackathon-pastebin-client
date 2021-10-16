@@ -1,8 +1,8 @@
 import { Paste } from '../types';
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
+import { SelectorIcon } from '@heroicons/react/solid'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
